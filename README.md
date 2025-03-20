@@ -1,2 +1,3 @@
-# ping-pong
-a classic game 
+# PONG
+
+A 2-Dimensional video game that stimulates table tennis.
