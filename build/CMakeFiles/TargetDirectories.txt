@@ -1,3 +1,3 @@
-/Users/gaurav/tests/raylib/build/CMakeFiles/my_game.dir
-/Users/gaurav/tests/raylib/build/CMakeFiles/edit_cache.dir
-/Users/gaurav/tests/raylib/build/CMakeFiles/rebuild_cache.dir
+/Users/gaurav/projects/ping-pong/build/CMakeFiles/pong.dir
+/Users/gaurav/projects/ping-pong/build/CMakeFiles/edit_cache.dir
+/Users/gaurav/projects/ping-pong/build/CMakeFiles/rebuild_cache.dir

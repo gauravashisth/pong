@@ -8,7 +8,7 @@ set(CMAKE_DEPENDS_LANGUAGES
 
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
-  "/Users/gaurav/tests/raylib/src/main.cpp" "CMakeFiles/my_game.dir/src/main.cpp.o" "gcc" "CMakeFiles/my_game.dir/src/main.cpp.o.d"
+  "/Users/gaurav/projects/ping-pong/src/main.cpp" "CMakeFiles/pong.dir/src/main.cpp.o" "gcc" "CMakeFiles/pong.dir/src/main.cpp.o.d"
   )
 
 # Targets to which this target links which contain Fortran sources.
