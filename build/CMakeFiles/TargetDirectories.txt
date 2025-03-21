@@ -1,3 +1,3 @@
-/Users/gaurav/projects/ping-pong/build/CMakeFiles/pong.dir
-/Users/gaurav/projects/ping-pong/build/CMakeFiles/edit_cache.dir
-/Users/gaurav/projects/ping-pong/build/CMakeFiles/rebuild_cache.dir
+/Users/gaurav/projects/pong/build/CMakeFiles/pong.dir
+/Users/gaurav/projects/pong/build/CMakeFiles/edit_cache.dir
+/Users/gaurav/projects/pong/build/CMakeFiles/rebuild_cache.dir
