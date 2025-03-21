@@ -8,13 +8,17 @@ int main() {
   SetTargetFPS(60);
 
   // game loop
-  while (WindowShouldClose() == false) {
+  while (!WindowShouldClose()) {
     // created a blank canvas
     BeginDrawing();
     DrawCircle(screen_w / 2, screen_h / 2, 20, WHITE);
-    // y=screen_h/2-rectangle_h/2
+
+    // dividers
+    DrawLine((screen_w / 2) - 5, 0, (screen_w / 2) - 5, screen_h, WHITE);
+    DrawLine((screen_w / 2) + 5, 0, (screen_w / 2) + 5, screen_h, WHITE);
+
+    // paddles, y=screen_h/2 - rectangle_h/2
     DrawRectangle(10, (screen_h / 2) - 60, 25, 120, WHITE);
-    DrawLine(screen_w / 2, 0, screen_w / 2, screen_h, WHITE);
     DrawRectangle(screen_w - 35, (screen_h / 2) - 60, 25, 120, WHITE);
     EndDrawing();
   }
