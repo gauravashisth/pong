@@ -79,8 +79,8 @@ int main() {
   ball.radius = 20;
   ball.x = screen_w / 2;
   ball.y = screen_h / 2;
-  ball.speed_x = 10;
-  ball.speed_y = 10;
+  ball.speed_x = 7;
+  ball.speed_y = 7;
 
   player.width = 25;
   player.height = 120;
@@ -92,7 +92,7 @@ int main() {
   ai.height = 120;
   ai.x = 10;
   ai.y = screen_h / 2 - ai.height / 2;
-  ai.speed = 6;
+  ai.speed = 9;
 
   // game loop
   while (!WindowShouldClose()) {
@@ -105,8 +105,27 @@ int main() {
     // update
     player.Update();
     ai.Update(ball.y);
-    ClearBackground(BLANK);
 
+    // collision
+    if (CheckCollisionCircleRec(
+            Vector2{static_cast<float>(ball.x), static_cast<float>(ball.y)},
+            ball.radius,
+            Rectangle{static_cast<float>(player.x),
+                      static_cast<float>(player.y),
+                      static_cast<float>(player.width),
+                      static_cast<float>(player.height)})) {
+      ball.speed_x *= -1;
+    }
+    if (CheckCollisionCircleRec(
+            Vector2{static_cast<float>(ball.x), static_cast<float>(ball.y)},
+            ball.radius,
+            Rectangle{static_cast<float>(ai.x), static_cast<float>(ai.y),
+                      static_cast<float>(ai.width),
+                      static_cast<float>(ai.height)})) {
+      ball.speed_x *= -1;
+    }
+
+    ClearBackground(BLACK);
     // dividers
     DrawLine((screen_w / 2) - 5, 0, (screen_w / 2) - 5, screen_h, WHITE);
     DrawLine((screen_w / 2) + 5, 0, (screen_w / 2) + 5, screen_h, WHITE);
