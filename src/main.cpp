@@ -22,6 +22,17 @@ public:
 };
 
 class Paddle {
+protected:
+  void restrictedMoves() {
+    // it stops paddle to move outside of screen
+    if (y <= 0) {
+      y = 0;
+    }
+    if (y + height >= GetScreenHeight()) {
+      y = GetScreenHeight() - height;
+    }
+  }
+
 public:
   int x, y;
   int width, height;
@@ -36,17 +47,23 @@ public:
     if (IsKeyDown(KEY_DOWN)) {
       y += speed;
     }
-    // it stops paddle to move outside of screen
-    if (y <= 0) {
-      y = 0;
-    }
-    if (y + height >= GetScreenHeight()) {
-      y = GetScreenHeight() - height;
-    }
+    restrictedMoves();
   }
 };
 
-class aiPaddlle : public Paddle {};
+class aiPaddlle : public Paddle {
+public:
+  void Update(int ball_y) {
+    // handle aiPaddle movements
+    if (y + height / 2 > ball_y) {
+      y -= speed;
+    }
+    if (y + height / 2 < ball_y) {
+      y += speed;
+    }
+    restrictedMoves();
+  }
+};
 
 Ball ball;
 Paddle player;
@@ -87,6 +104,7 @@ int main() {
 
     // update
     player.Update();
+    ai.Update(ball.y);
     ClearBackground(BLANK);
 
     // dividers
