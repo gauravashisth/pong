@@ -81,8 +81,10 @@ int main() {
   while (!WindowShouldClose()) {
     // created a blank canvas
     BeginDrawing();
-    /*DrawCircle(screen_w / 2, screen_h / 2, 20, WHITE);*/
+    // draws ball
+    ball.Draw();
     ball.speed();
+
     // update
     player.Update();
     ClearBackground(BLANK);
@@ -91,13 +93,9 @@ int main() {
     DrawLine((screen_w / 2) - 5, 0, (screen_w / 2) - 5, screen_h, WHITE);
     DrawLine((screen_w / 2) + 5, 0, (screen_w / 2) + 5, screen_h, WHITE);
 
-    // draws ball
-    ball.Draw();
-
-    // paddles, y=screen_h/2 - rectangle_h/2
-    /*DrawRectangle(10, (screen_h / 2) - 60, 25, 120, WHITE);*/
-    /*DrawRectangle(screen_w - 35, (screen_h / 2) - 60, 25, 120, WHITE);*/
+    // paddles
     player.Draw();
+    ai.Draw();
 
     EndDrawing();
   }
