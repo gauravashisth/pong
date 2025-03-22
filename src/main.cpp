@@ -28,10 +28,29 @@ public:
   int speed;
 
   void Draw() { DrawRectangle(x, y, width, height, WHITE); }
+  void Update() {
+    // here IsKeyUp() isn't used 'cause it makes paddle to move upward w/o input
+    if (IsKeyDown(KEY_UP)) {
+      y -= speed;
+    }
+    if (IsKeyDown(KEY_DOWN)) {
+      y += speed;
+    }
+    // it stops paddle to move outside of screen
+    if (y <= 0) {
+      y = 0;
+    }
+    if (y + height >= GetScreenHeight()) {
+      y = GetScreenHeight() - height;
+    }
+  }
 };
+
+class aiPaddlle : public Paddle {};
 
 Ball ball;
 Paddle player;
+aiPaddlle ai;
 
 int main() {
   const int screen_w = 1280;
@@ -52,13 +71,20 @@ int main() {
   player.y = screen_h / 2 - player.height / 2;
   player.speed = 6;
 
+  ai.width = 25;
+  ai.height = 120;
+  ai.x = 10;
+  ai.y = screen_h / 2 - ai.height / 2;
+  ai.speed = 6;
+
   // game loop
   while (!WindowShouldClose()) {
     // created a blank canvas
     BeginDrawing();
     /*DrawCircle(screen_w / 2, screen_h / 2, 20, WHITE);*/
-    // update
     ball.speed();
+    // update
+    player.Update();
     ClearBackground(BLANK);
 
     // dividers
