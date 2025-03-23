@@ -3,13 +3,19 @@
 int ai_score = 0;
 int p_score = 0;
 
+// input: rgb values+ alpha channel (transparency)
+Color Green = Color{26, 131, 110, 50};
+Color Dgreen = Color{20, 160, 133, 55};
+Color Lgreen = Color{129, 204, 184, 50};
+Color Yellow = Color{243, 213, 91, 255};
+
 class Ball {
 public:
   int x, y;
   int speed_x, speed_y;
   int radius;
 
-  void Draw() { DrawCircle(x, y, radius, WHITE); }
+  void Draw() { DrawCircle(x, y, radius, Yellow); }
   void speed() {
     x += speed_x;
     y += speed_y;
@@ -99,20 +105,20 @@ int main() {
   ball.radius = 20;
   ball.x = screen_w / 2;
   ball.y = screen_h / 2;
-  ball.speed_x = 7;
-  ball.speed_y = 7;
+  ball.speed_x = 8;
+  ball.speed_y = 8;
 
   player.width = 25;
   player.height = 120;
   player.x = screen_w - player.width - 10;
   player.y = screen_h / 2 - player.height / 2;
-  player.speed = 6;
+  player.speed = 8;
 
   ai.width = 25;
   ai.height = 120;
   ai.x = 10;
   ai.y = screen_h / 2 - ai.height / 2;
-  ai.speed = 9;
+  ai.speed = 6;
 
   // game loop
   while (!WindowShouldClose()) {
@@ -145,7 +151,11 @@ int main() {
       ball.speed_x *= -1;
     }
 
-    ClearBackground(BLANK);
+    // ui
+    ClearBackground(Dgreen);
+    DrawRectangle(screen_w / 2, 0, screen_w / 2, screen_h, Green);
+    DrawCircle(screen_w / 2, screen_h / 2, 150, Lgreen);
+
     // dividers
     DrawLine((screen_w / 2) - 5, 0, (screen_w / 2) - 5, screen_h, WHITE);
     DrawLine((screen_w / 2) + 5, 0, (screen_w / 2) + 5, screen_h, WHITE);
