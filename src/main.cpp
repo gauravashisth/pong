@@ -1,5 +1,8 @@
 #include <raylib.h>
 
+int ai_score = 0;
+int p_score = 0;
+
 class Ball {
 public:
   int x, y;
@@ -12,12 +15,14 @@ public:
     y += speed_y;
 
     // collision edges for ball
-    if (y + radius >= GetScreenHeight() || y - radius <= 0) {
+    if (y + radius >= GetScreenHeight() || y - radius <= 0)
       speed_y *= -1;
-    }
-    if (x + radius >= GetScreenWidth() || x - radius <= 0) {
-      speed_x *= -1;
-    }
+    /*if (x + radius >= GetScreenHeight() || x - radius <= 0)*/
+    /*  speed_x *= -1;*/
+    if (x + radius >= GetScreenWidth()) // ai score
+      ai_score++;
+    if (x - radius <= 0) // player score
+      p_score++;
   }
 };
 
@@ -134,6 +139,9 @@ int main() {
     player.Draw();
     ai.Draw();
 
+    // convert p,ai_score to text
+    DrawText(TextFormat("%i", ai_score), screen_w / 4 - 20, 20, 80, WHITE);
+    DrawText(TextFormat("%i", p_score), 3 * screen_w / 4 - 20, 20, 80, WHITE);
     EndDrawing();
   }
   CloseWindow();
