@@ -19,10 +19,25 @@ public:
       speed_y *= -1;
     /*if (x + radius >= GetScreenHeight() || x - radius <= 0)*/
     /*  speed_x *= -1;*/
-    if (x + radius >= GetScreenWidth()) // ai score
+    if (x + radius >= GetScreenWidth()) { // ai score
       ai_score++;
-    if (x - radius <= 0) // player score
+      reset();
+    }
+    if (x - radius <= 0) { // player score
       p_score++;
+      reset();
+    }
+  }
+
+  // resets the game after scoring a point
+  void reset() {
+    x = GetScreenWidth() / 2;
+    y = GetScreenHeight() / 2;
+
+    // randomize the direction of ball at starting point
+    int choices[2] = {-1, 1};
+    speed_x *= choices[GetRandomValue(0, 1)];
+    speed_y *= choices[GetRandomValue(0, 1)];
   }
 };
 
@@ -130,7 +145,7 @@ int main() {
       ball.speed_x *= -1;
     }
 
-    ClearBackground(BLACK);
+    ClearBackground(BLANK);
     // dividers
     DrawLine((screen_w / 2) - 5, 0, (screen_w / 2) - 5, screen_h, WHITE);
     DrawLine((screen_w / 2) + 5, 0, (screen_w / 2) + 5, screen_h, WHITE);
