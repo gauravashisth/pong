@@ -1,5 +1,11 @@
 #include <raylib.h>
 
+#ifdef __APPLE__
+#include <ApplicationServices/ApplicationServices.h> // macOS Framework
+#elif __linux__
+#include <X11/Xlib.h> // Linux X11 Library
+#endif
+
 int ai_score = 0;
 int p_score = 0;
 
@@ -8,6 +14,50 @@ Color Green = Color{26, 131, 110, 50};
 Color Dgreen = Color{20, 160, 133, 55};
 Color Lgreen = Color{129, 204, 184, 50};
 Color Yellow = Color{243, 213, 91, 255};
+
+class ScreenInfo {
+public:
+  // Struct to hold resolution values
+  struct Resolution {
+    int width;
+    int height;
+  };
+
+  // Function to get actual screen resolution
+  static Resolution getScreenResolution() {
+    Resolution res = {0, 0}; // Default values
+
+#ifdef __APPLE__
+                             // macOS Code
+    CGDirectDisplayID mainDisplay = CGMainDisplayID();
+    res.width = CGDisplayPixelsWide(mainDisplay);
+    res.height = CGDisplayPixelsHigh(mainDisplay);
+
+#elif __linux__
+                             // Linux Code
+    Display *display = XOpenDisplay(nullptr);
+    if (display == nullptr) {
+      std::cerr << "Unable to open X display" << std::endl;
+      return res;
+    }
+
+    Screen *screen = DefaultScreenOfDisplay(display);
+    res.width = screen->width;
+    res.height = screen->height;
+
+    XCloseDisplay(display);
+#endif
+
+    return res;
+  }
+
+  // Function to return 71% of screen resolution
+  static Resolution getScaledResolution() {
+    Resolution res = getScreenResolution();
+    return {static_cast<int>(res.width * 0.762),
+            static_cast<int>(res.height * 0.762)};
+  }
+};
 
 class Ball {
 public:
@@ -96,8 +146,10 @@ Paddle player;
 aiPaddlle ai;
 
 int main() {
-  const int screen_w = 1280;
-  const int screen_h = 800;
+  ScreenInfo::Resolution fullRes = ScreenInfo::getScreenResolution();
+  ScreenInfo::Resolution scaledRes = ScreenInfo::getScaledResolution();
+  int screen_w = scaledRes.width;
+  int screen_h = scaledRes.height;
 
   InitWindow(screen_w, screen_h, "Pong");
   SetTargetFPS(60);

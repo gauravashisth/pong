@@ -4,7 +4,7 @@ A 2-Dimensional video game that stimulates table tennis.
 
 ## Command to run the program:
 
-1. cmake -B build -S . -DCMAKE_EXPORT_COMPILE_COMMANDS=YES?
+1. cmake -B build -S . -DCMAKE_EXPORT_COMPILE_COMMANDS=YES
 2. ln -s build/compile_commands.json .
 
 - (not necessary)
