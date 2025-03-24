@@ -1,8 +1,10 @@
+#include <iostream>
 #include <raylib.h>
 
 #ifdef __APPLE__
 #include <ApplicationServices/ApplicationServices.h> // macOS Framework
 #elif __linux__
+#define Font XFont
 #include <X11/Xlib.h> // Linux X11 Library
 #endif
 
@@ -37,7 +39,7 @@ public:
                              // Linux Code
     Display *display = XOpenDisplay(nullptr);
     if (display == nullptr) {
-      std::cerr << "Unable to open X display" << std::endl;
+      std::cerr << "Unable to open X display" << '\n';
       return res;
     }
 
