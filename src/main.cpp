@@ -112,11 +112,14 @@ protected:
   }
 
 public:
-  int x, y;
-  int width, height;
-  int speed;
+  float x, y;
+  float width, height;
+  float speed;
 
-  void Draw() { DrawRectangle(x, y, width, height, WHITE); }
+  // draws rectangle w/ rounded edges
+  void Draw() {
+    DrawRectangleRounded(Rectangle{x, y, width, height}, 0.8, 0, WHITE);
+  }
   void Update() {
     // here IsKeyUp() isn't used 'cause it makes paddle to move upward w/o input
     if (IsKeyDown(KEY_UP)) {
