@@ -63,9 +63,9 @@ public:
 
 class Ball {
 public:
-  int x, y;
-  int speed_x, speed_y;
-  int radius;
+  float x, y;
+  float speed_x, speed_y;
+  float radius;
 
   void Draw() { DrawCircle(x, y, radius, Yellow); }
   void speed() {
@@ -89,8 +89,8 @@ public:
 
   // resets the game after scoring a point
   void reset() {
-    x = GetScreenWidth() / 2;
-    y = GetScreenHeight() / 2;
+    x = GetScreenWidth() * 0.5;
+    y = GetScreenHeight() * 0.5;
 
     // randomize the direction of ball at starting point
     int choices[2] = {-1, 1};
@@ -136,10 +136,10 @@ class aiPaddlle : public Paddle {
 public:
   void Update(int ball_y) {
     // handle aiPaddle movements
-    if (y + height / 2 > ball_y) {
+    if (y + (height * 0.5) > ball_y) {
       y -= speed;
     }
-    if (y + height / 2 < ball_y) {
+    if (y + (height * 0.5) < ball_y) {
       y += speed;
     }
     restrictedMoves();
@@ -160,21 +160,21 @@ int main() {
   SetTargetFPS(60);
 
   ball.radius = 20;
-  ball.x = screen_w / 2;
-  ball.y = screen_h / 2;
+  ball.x = screen_w * 0.5;
+  ball.y = screen_h * 0.5;
   ball.speed_x = 8;
   ball.speed_y = 8;
 
   player.width = 25;
   player.height = 120;
   player.x = screen_w - player.width - 10;
-  player.y = screen_h / 2 - player.height / 2;
+  player.y = screen_h * 0.5 - player.height * 0.5;
   player.speed = 8;
 
   ai.width = 25;
   ai.height = 120;
   ai.x = 10;
-  ai.y = screen_h / 2 - ai.height / 2;
+  ai.y = screen_h * 0.5 - ai.height * 0.5;
   ai.speed = 6;
 
   // game loop
@@ -191,31 +191,22 @@ int main() {
 
     // collision
     if (CheckCollisionCircleRec(
-            Vector2{static_cast<float>(ball.x), static_cast<float>(ball.y)},
-            ball.radius,
-            Rectangle{static_cast<float>(player.x),
-                      static_cast<float>(player.y),
-                      static_cast<float>(player.width),
-                      static_cast<float>(player.height)})) {
+            Vector2{ball.x, ball.y}, ball.radius,
+            Rectangle{player.x, player.y, player.width, player.height}))
       ball.speed_x *= -1;
-    }
-    if (CheckCollisionCircleRec(
-            Vector2{static_cast<float>(ball.x), static_cast<float>(ball.y)},
-            ball.radius,
-            Rectangle{static_cast<float>(ai.x), static_cast<float>(ai.y),
-                      static_cast<float>(ai.width),
-                      static_cast<float>(ai.height)})) {
+
+    if (CheckCollisionCircleRec(Vector2{ball.x, ball.y}, ball.radius,
+                                Rectangle{ai.x, ai.y, ai.width, ai.height}))
       ball.speed_x *= -1;
-    }
 
     // ui
     ClearBackground(Dgreen);
-    DrawRectangle(screen_w / 2, 0, screen_w / 2, screen_h, Green);
-    DrawCircle(screen_w / 2, screen_h / 2, 150, Lgreen);
+    DrawRectangle(screen_w * 0.5, 0, screen_w * 0.5, screen_h, Green);
+    DrawCircle(screen_w * 0.5, screen_h * 0.5, 150, Lgreen);
 
     // dividers
-    DrawLine((screen_w / 2) - 5, 0, (screen_w / 2) - 5, screen_h, WHITE);
-    DrawLine((screen_w / 2) + 5, 0, (screen_w / 2) + 5, screen_h, WHITE);
+    DrawLine((screen_w * 0.5) - 5, 0, (screen_w * 0.5) - 5, screen_h, WHITE);
+    DrawLine((screen_w * 0.5) + 5, 0, (screen_w * 0.5) + 5, screen_h, WHITE);
 
     // paddles
     player.Draw();
